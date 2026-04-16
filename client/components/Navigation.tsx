@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import BrandLogo from "./BrandLogo";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,11 +28,7 @@ const Navigation = () => {
           {/* Logo Area */}
           <Link to="/" className="flex items-center gap-2.5 pl-4 pr-6 h-full hover:opacity-70 transition-opacity">
             <div className="w-6 h-6 flex items-center justify-center">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/3f38f14560d81eee4eb03b2b64866400a760ada5?width=58"
-                alt="KrazyStudios Logo"
-                className="w-full h-auto"
-              />
+              <BrandLogo className="w-full" />
             </div>
             <span className="font-grotesk font-bold text-lg text-gray-900 tracking-wider uppercase">
               KRAZYSTUDIOS
@@ -82,11 +79,7 @@ const Navigation = () => {
             {/* Mobile Logo */}
             <Link to="/" className="flex items-center gap-2 shrink-0">
               <div className="w-6 h-6 flex items-center justify-center">
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/3f38f14560d81eee4eb03b2b64866400a760ada5?width=58"
-                  alt="KrazyStudios Logo"
-                  className="w-full h-auto"
-                />
+                <BrandLogo className="w-full" />
               </div>
               <span className="font-grotesk font-bold text-lg text-gray-900 tracking-wider uppercase">
                 KRAZYSTUDIOS

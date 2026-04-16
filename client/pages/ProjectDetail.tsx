@@ -1,6 +1,7 @@
 import { useParams, Navigate } from "react-router-dom";
 import Navigation from "../components/Navigation";
-import GhostCursor from "../components/GhostCursor";
+import SiteFooter from "../components/SiteFooter";
+import { siteConfig } from "@/lib/site-config";
 
 type ProjectData = {
   title: string;
@@ -15,7 +16,7 @@ const projectsData: Record<string, ProjectData> = {
     title: "SAFER – Women’s Safety App",
     category: "App Design",
     duration: "2 weeks",
-    behance: "https://www.behance.net/gallery/234590253/SAFER-Women-Safety-Mobile-App-(UIUX-Case-Study)",
+    behance: siteConfig.projectCaseStudies.safer,
     renderContent: () => (
       <>
         {/* Section: Overview */}
@@ -94,7 +95,7 @@ const projectsData: Record<string, ProjectData> = {
     title: "Techsonix Solutions",
     category: "Brand Identity",
     duration: "2 weeks",
-    behance: "https://www.behance.net/gallery/227717277/Techsonix-Solutions-Logo-Design-Brand-Identity",
+    behance: siteConfig.projectCaseStudies.techsonix,
     renderContent: () => (
       <>
         {/* Section: Introduction */}
@@ -236,7 +237,7 @@ const projectsData: Record<string, ProjectData> = {
     title: "Skyminent Construction",
     category: "Brand Identity",
     duration: "2 weeks",
-    behance: "https://www.behance.net/gallery/231846785/Brand-Identity-Design-for-SKYEMINENT-CONSTRUCTION",
+    behance: siteConfig.projectCaseStudies.skyminent,
     renderContent: () => (
       <>
         {/* Section: Introduction */}
@@ -394,9 +395,12 @@ const projectsData: Record<string, ProjectData> = {
 
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
-  
-  // Default to safer if the project id doesn't exist yet (e.g. skyminent)
-  const project = id && projectsData[id] ? projectsData[id] : projectsData["safer"];
+
+  if (!id || !projectsData[id]) {
+    return <Navigate to="/404" replace />;
+  }
+
+  const project = projectsData[id];
 
   return (
     <div className="min-h-screen bg-white">
@@ -420,7 +424,7 @@ export default function ProjectDetail() {
               <div className="mb-6 font-grotesk text-base">
                 <span className="text-gray-900 font-medium">Projects</span>
                 <span className="text-gray-300 mx-2">/</span>
-                <span className="text-gray-400 capitalize">{id || 'SAFER'}</span>
+                <span className="text-gray-400">{project.title}</span>
               </div>
 
               {/* Huge Title */}
@@ -486,55 +490,10 @@ export default function ProjectDetail() {
       </main>
 
       {/* Footer from Index.tsx */}
-      <footer className="relative overflow-hidden border-t border-gray-200 bg-gray-950" style={{ minHeight: '500px' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <GhostCursor
-            color="#5227FF"
-            brightness={2}
-            edgeIntensity={0}
-            trailLength={50}
-            inertia={0.5}
-            grainIntensity={0.05}
-            bloomStrength={0.1}
-            bloomRadius={1}
-            bloomThreshold={0.025}
-            fadeDelayMs={1000}
-            fadeDurationMs={1500}
-          />
-        </div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full" style={{ minHeight: '500px' }}>
-          <div className="flex items-center justify-center flex-1 w-full px-4">
-            <h2
-              className="font-grotesk font-bold text-center select-none"
-              style={{
-                fontSize: 'clamp(3rem, 10vw, 10rem)',
-                lineHeight: 1,
-                letterSpacing: '-0.04em',
-                background: 'linear-gradient(135deg, #ffffff 0%, #a855f7 40%, #5227FF 70%, #00b2ff 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                filter: 'drop-shadow(0 0 60px rgba(82, 39, 255, 0.3))',
-              }}
-            >
-              KRAZYSTUDIOS
-            </h2>
-          </div>
-          <div className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-10 pb-8 pt-4">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/10 pt-6">
-              <p className="font-grotesk text-sm text-white/50">
-                © 2024 — 2025 KrazyStudios. All rights reserved.
-              </p>
-              <div className="flex items-center gap-6">
-                <a href="#" className="font-grotesk text-sm text-white/50 hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" className="font-grotesk text-sm text-white/50 hover:text-white transition-colors">Terms of Service</a>
-                <a href="#" className="font-grotesk text-sm text-white/50 hover:text-white transition-colors">Instagram ↗</a>
-                <a href="#" className="font-grotesk text-sm text-white/50 hover:text-white transition-colors">Twitter ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
+
+
+
