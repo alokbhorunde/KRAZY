@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import * as THREE from 'three';
 
 interface ParticleData {
@@ -31,6 +31,7 @@ interface AntigravityInnerProps {
   particleSize?: number;
   lerpSpeed?: number;
   color?: string;
+  colors?: string[];
   autoAnimate?: boolean;
   particleVariance?: number;
   rotationSpeed?: number;
@@ -49,6 +50,7 @@ const AntigravityInner = ({
   particleSize = 2,
   lerpSpeed = 0.1,
   color = '#FF9FFC',
+  colors,
   autoAnimate = false,
   particleVariance = 1,
   rotationSpeed = 0,
@@ -105,6 +107,38 @@ const AntigravityInner = ({
     }
     return temp;
   }, [count, viewport.width, viewport.height]);
+
+  useEffect(() => {
+    const mesh = meshRef.current;
+    if (!mesh || !colors || colors.length === 0) return;
+
+    const tempColor = new THREE.Color();
+    const parsedColors = colors.map((c) => new THREE.Color(c));
+
+    for (let i = 0; i < count; i++) {
+      const t = Math.random();
+      
+      if (parsedColors.length === 1) {
+        tempColor.copy(parsedColors[0]);
+      } else if (parsedColors.length === 2) {
+        tempColor.copy(parsedColors[0]).lerp(parsedColors[1], t);
+      } else if (parsedColors.length === 3) {
+        if (t < 0.35) {
+          tempColor.copy(parsedColors[0]).lerp(parsedColors[1], t / 0.35);
+        } else {
+          tempColor.copy(parsedColors[1]).lerp(parsedColors[2], (t - 0.35) / 0.65);
+        }
+      } else {
+        tempColor.copy(parsedColors[Math.floor(Math.random() * parsedColors.length)]);
+      }
+      
+      mesh.setColorAt(i, tempColor);
+    }
+    
+    if (mesh.instanceColor) {
+      mesh.instanceColor.needsUpdate = true;
+    }
+  }, [count, colors]);
 
   useFrame((state) => {
     const mesh = meshRef.current;
@@ -224,7 +258,7 @@ const AntigravityInner = ({
       {particleShape === 'tetrahedron' && (
         <tetrahedronGeometry args={[0.3]} />
       )}
-      <meshBasicMaterial color={color} />
+      <meshBasicMaterial color={colors && colors.length > 0 ? undefined : color} />
     </instancedMesh>
   );
 };

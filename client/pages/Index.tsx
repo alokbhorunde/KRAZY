@@ -74,14 +74,15 @@ export default function Index() {
         <div className="absolute inset-0 z-0">
           <Suspense fallback={null}>
             <Antigravity
-              count={250}
+              count={500}
               magnetRadius={6}
-              ringRadius={7}
+              ringRadius={5}
               waveSpeed={0.4}
               waveAmplitude={1}
-              particleSize={1.5}
+              particleSize={0.9}
               lerpSpeed={0.1}
               color="#A600FF"
+              colors={["#00B2FF", "#A600FF", "#ff0000ff"]}
               autoAnimate
               particleVariance={1}
               rotationSpeed={0}
@@ -217,11 +218,10 @@ export default function Index() {
                     <img
                       src={project.image}
                       alt={project.alt}
-                      className={`h-full w-full object-cover transition-transform duration-700 ${
-                        project.id === "skyminent"
-                          ? "scale-[1.35] origin-center group-hover:scale-[1.45]"
-                          : ""
-                      }`}
+                      className={`h-full w-full object-cover transition-transform duration-700 ${project.id === "skyminent"
+                        ? "scale-[1.35] origin-center group-hover:scale-[1.45]"
+                        : ""
+                        }`}
                       loading="lazy"
                       decoding="async"
                     />
