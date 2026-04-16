@@ -1,38 +1,39 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Antigravity from "../components/Antigravity";
 import GhostCursor from "../components/GhostCursor";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ArrowUpRight } from "lucide-react";
 
 const services = [
   {
     title: "Creative Branding",
     description: "Crafting unforgettable identities and visual systems that turn heads.",
-    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop&crop=center",
+    image: "/creative_branding.png",
     num: "01"
   },
   {
     title: "UI/UX Design",
     description: "Designing sleek, intuitive interfaces that users love to use.",
-    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop&crop=center",
+    image: "/ui_ux.png",
     num: "02"
   },
   {
     title: "Logo Design",
     description: "Creating iconic symbols that capture your brand's essence.",
-    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop&crop=center",
+    image: "/logo_design.png",
     num: "03"
   },
   {
     title: "Poster Design",
     description: "Eye-catching visuals that demand attention and inspire action.",
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop&crop=center",
+    image: "/poster_design.png",
     num: "04"
   },
   {
     title: "Web & App Development",
     description: "Building digital experiences that work seamlessly across all devices.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&crop=center",
+    image: "/webdev.png",
     num: "05"
   },
   {
@@ -45,32 +46,6 @@ const services = [
 
 export default function Index() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [servicesProgress, setServicesProgress] = useState(0);
-  const servicesSectionRef = useRef<HTMLElement>(null);
-  const rafRef = useRef<number | null>(null);
-
-  // Scroll listener for services stacking — rAF-throttled for 60fps smoothness
-  useEffect(() => {
-    const handleScroll = () => {
-      if (rafRef.current) return;
-      rafRef.current = requestAnimationFrame(() => {
-        const section = servicesSectionRef.current;
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          const scrollableDistance = section.offsetHeight - window.innerHeight;
-          const progress = Math.max(0, Math.min(1, -rect.top / scrollableDistance));
-          setServicesProgress(progress);
-        }
-        rafRef.current = null;
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
 
   const testimonials = [
     {
@@ -150,371 +125,182 @@ export default function Index() {
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            {/* About Us CTA */}
-            <div className="relative">
-              <a
-                href="#about"
-                className="group inline-flex items-center justify-center px-6 py-3 font-grotesk font-bold text-xl bg-transparent rounded-full border-2 border-gray-900 hover:bg-gray-100 transition-all duration-300 ease-in-out"
-              >
-                <span className="text-gray-900 group-hover:gradient-text transition-all duration-300 ease-in-out">
-                  About us
-                </span>
-                <svg
-                  className="ml-2 w-5 h-5 text-gray-900 transition-all duration-300 ease-in-out transform group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
+
           </div>
         </div>
       </section>
 
 
 
-      {/* Services Section — Sticky Stacking Cards */}
-      <section
-        ref={servicesSectionRef}
-        className="relative bg-white"
-        style={{ height: `${(services.length + 1) * 100}vh` }}
-      >
-        <div className="sticky top-0 h-screen overflow-hidden">
-          <div className="h-full flex flex-col px-4 sm:px-6 lg:px-10">
-            <div className="max-w-[1100px] mx-auto w-full pt-24">
-              {/* Frozen Header */}
-              <div className="border-t-2 border-gray-200 pt-8 mb-8">
-                <p className="font-lora italic text-xl md:text-2xl text-gray-500 mb-2 tracking-tight">Services</p>
-                <h2 className="font-grotesk font-bold text-3xl md:text-5xl lg:text-6xl leading-none tracking-tight mb-3 gradient-text">What we do</h2>
-              </div>
+      {/* Services Section — Minimalist Typography List */}
+      <section id="services" className="py-24 px-4 sm:px-6 lg:px-10 bg-white">
+        <div className="max-w-[1100px] mx-auto w-full">
+          {/* Header */}
+          <div className="border-t-2 border-gray-200 pt-8 mb-16">
+            <p className="font-lora italic text-xl md:text-2xl text-gray-500 mb-2 tracking-tight">Services</p>
+            <h2 className="font-grotesk font-bold text-3xl md:text-5xl lg:text-6xl leading-none tracking-tight gradient-text w-fit">What we do</h2>
+          </div>
 
-              {/* Stacking Cards Viewport */}
-              <div className="relative" style={{ height: '22rem' }}>
-                {services.map((service, i) => {
-                  // cardProgress: 0 = not yet visible, 0→1 = sliding in, 1 = fully stacked
-                  const cardProgress = Math.max(0, Math.min(1, servicesProgress * services.length - i));
-                  
-                  // Card slides up from below and lands at Y=0
-                  const translateY = cardProgress >= 1 ? 0 : (1 - cardProgress) * 500;
-                  
-                  // Fully stacked cards: the TOP card in the stack = highest z-index
-                  // Each new card that arrives gets a HIGHER z-index → lands on top
-                  const zIndex = cardProgress > 0 ? i + 1 : 0;
+          {/* Minimalist Typographic List */}
+          <div className="flex flex-col gap-6 md:gap-10 pl-4 md:pl-8 lg:pl-16">
+            {services.map((service, i) => (
+              <div key={i} className="group cursor-pointer w-full relative py-2">
+                
+                {/* Left Side: Typography */}
+                <div className="w-fit z-10 relative">
+                  <div className="flex items-center transform origin-left transition-transform duration-300 group-hover:scale-[1.03]">
+                    <h3 className="font-grotesk font-bold text-xl md:text-3xl lg:text-4xl text-gray-900 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#00b2ff] group-hover:via-[#d946ef] group-hover:to-[#f97316] transition-all duration-300 tracking-tight">
+                      {service.title}
+                    </h3>
+                    <span className="font-grotesk font-bold text-xl md:text-3xl lg:text-4xl text-gray-900 ml-3 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      →
+                    </span>
+                  </div>
+                  {/* Expandable Details */}
+                  <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-0 group-hover:mt-3">
+                    <p className="font-grotesk text-lg md:text-xl text-gray-600">
+                      {service.description}
+                    </p>
+                  </div>
+                </div>
 
-                  return (
-                    <div
-                      key={i}
-                      className="absolute inset-x-0 top-0 rounded-3xl border border-gray-100 bg-[#fafafa] p-8 md:p-10"
-                      style={{
-                        height: '20rem',
-                        transform: `translateY(${translateY}px)`,
-                        opacity: cardProgress > 0.01 ? 1 : 0,
-                        zIndex,
-                        boxShadow: cardProgress >= 1 ? '0 -4px 30px rgba(0,0,0,0.08)' : '0 4px 30px rgba(0,0,0,0.06)',
-                        willChange: 'transform, opacity',
-                        transformOrigin: 'top center',
-                      }}
-                    >
-                      <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start md:items-center h-full">
-                        <div className="flex-1">
-                          <span className="font-grotesk text-sm font-bold text-gray-400 tracking-widest uppercase mb-3 block">{service.num}</span>
-                          <h3 className="font-grotesk font-bold text-3xl md:text-4xl lg:text-5xl leading-tight tracking-tight mb-3 gradient-text">
-                            {service.title}
-                          </h3>
-                          <p className="font-grotesk text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl">
-                            {service.description}
-                          </p>
-                        </div>
-                        <div className="w-full md:w-80 lg:w-96 flex-shrink-0">
-                          <img
-                            src={service.image}
-                            alt={service.title}
-                            className="w-full h-48 md:h-56 object-cover rounded-2xl"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                {/* Right Side: Floating Image */}
+                <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-8 group-hover:translate-x-0 group-hover:-rotate-3 z-0">
+                  <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white transform transition-transform duration-700 ease-out scale-95 group-hover:scale-100">
+                    <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-10">
+      <section id="projects" className="py-16 px-4 sm:px-6 lg:px-10">
         <div className="max-w-[1100px] mx-auto">
           <div className="border-t-2 border-gray-200 pt-8 mb-12">
             <div>
               <p className="font-lora italic text-2xl text-gray-500 mb-2 tracking-tight">Projects</p>
-              <h2 className="font-grotesk font-bold text-6xl leading-none text-gray-900 tracking-tight mb-3">Selected works</h2>
+              <h2 className="font-grotesk font-bold text-3xl md:text-5xl lg:text-6xl leading-none tracking-tight mb-3 gradient-text w-fit">Selected works</h2>
               <p className="font-grotesk text-2xl leading-8 text-gray-600 max-w-4xl">
                 Years of experience to create unique design in agile and fast manner
               </p>
             </div>
           </div>
 
-          {/* Featured Project */}
-          <div className="mb-16">
-            <div className="relative group cursor-pointer">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/c58dd61e4cdf3f3e13645b2a5e25084f474b27f9?width=2272"
-                alt="The Nature - Featured Project"
-                className="w-full h-140 object-cover rounded-xl"
-              />
-              <div className="absolute top-4 right-4">
-                <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-200">
-                  <ChevronRight className="w-5 h-5 text-gray-900" />
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <h3 className="font-grotesk font-bold text-3xl text-gray-900 mb-2">The Nature</h3>
-                <p className="font-grotesk text-xl text-gray-600 mb-5">
-                  Pushing creative boundaries and technologies, you've come to the right place
-                </p>
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4, 5].map((tag) => (
-                    <div key={tag} className="w-12 h-8 border-2 border-gray-300 rounded-full"></div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Project Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
-            <div className="relative group cursor-pointer">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/58a5051870cd99b37198a146e7951f57d69c4985?width=1120"
-                alt="Bizantine Project"
-                className="w-full h-80 object-cover rounded-xl"
-              />
-              <div className="absolute top-4 right-4">
-                <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-200">
-                  <ChevronRight className="w-5 h-5 text-gray-900" />
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <h3 className="font-grotesk font-bold text-3xl text-gray-900 mb-2">Bizantine</h3>
-                <p className="font-grotesk text-xl text-gray-600 mb-5">
-                  This way, we can cut out all the project management and focus just on the design processes
-                </p>
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4].map((tag) => (
-                    <div key={tag} className="w-12 h-8 border-2 border-gray-300 rounded-full"></div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="relative group cursor-pointer">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/e8a7738c6415ec4818f8a16d0c2e596bdddec929?width=1120"
-                alt="Countertouch Project"
-                className="w-full h-80 object-cover rounded-xl"
-              />
-              <div className="absolute top-4 right-4">
-                <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-200">
-                  <ChevronRight className="w-5 h-5 text-gray-900" />
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <h3 className="font-grotesk font-bold text-3xl text-gray-900 mb-2">Countertouch</h3>
-                <p className="font-grotesk text-xl text-gray-600 mb-5">
-                  Years of experience to create unique design in agile and fast manner
-                </p>
-                <div className="flex gap-2">
-                  {[1, 2, 3].map((tag) => (
-                    <div key={tag} className="w-12 h-8 border-2 border-gray-300 rounded-full"></div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* See All Projects CTA */}
-          <div className="text-center">
-            <a href="#" className="inline-flex items-center justify-center px-8 md:px-32 lg:px-96 py-3 font-grotesk font-bold text-lg md:text-xl gradient-text bg-gray-50 rounded-full border-2 border-gray-200 hover:bg-gray-100 transition-colors">
-              See all projects
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-10">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="border-t-2 border-gray-200 pt-8 mb-16">
-            <div>
-              <p className="font-lora italic text-2xl text-gray-500 mb-2 tracking-tight">Testimonials</p>
-              <h2 className="font-grotesk font-bold text-6xl leading-none text-gray-900 tracking-tight">Clients about us</h2>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="flex justify-center items-center min-h-80">
-              <div className="text-center max-w-4xl">
-                <blockquote className="font-grotesk font-bold text-xl md:text-2xl lg:text-3xl leading-tight text-gray-900 mb-6 tracking-tight">
-                  "{testimonials[currentTestimonial].quote}"
-                </blockquote>
-
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                  <img
-                    src={testimonials[currentTestimonial].avatar}
-                    alt={testimonials[currentTestimonial].author}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  <div className="text-center md:text-left">
-                    <div className="font-grotesk font-bold text-lg text-gray-900">
-                      {testimonials[currentTestimonial].author}
-                    </div>
-                    <div className="font-grotesk text-base text-gray-500">
-                      {testimonials[currentTestimonial].role}
-                    </div>
+          {/* Projects Wrapper (Narrower) */}
+          <div className="max-w-[950px] mx-auto">
+            {/* Featured Project */}
+            <div className="mb-16">
+              <Link to="/project/safer" className="block relative group cursor-pointer">
+                <img
+                  src="/safer.png.png"
+                  alt="SAFER – Women Safety Mobile App (UI/UX Case Study) - Featured Project"
+                  className="w-full h-96 md:h-[450px] lg:h-[500px] object-cover rounded-xl"
+                />
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-12 h-12 bg-gray-950 rounded-full flex items-center justify-center shadow-lg">
+                    <ArrowUpRight className="w-6 h-6 text-white" />
                   </div>
                 </div>
+
+                <div className="mt-4">
+                <h3 className="font-grotesk font-bold text-2xl md:text-3xl text-gray-900 mb-2 group-hover:text-[#5227FF] transition-colors">SAFER – Women Safety Mobile App (UI/UX Case Study)</h3>
               </div>
+              </Link>
             </div>
 
-            {/* Next Button */}
-            <button
-              onClick={() => setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)}
-              className="absolute right-4 md:right-0 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
-            >
-              <ChevronRight className="w-5 h-5 text-white" />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-10">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="border-t-2 border-gray-200 pt-8 mb-12">
-            <div>
-              <p className="font-lora italic text-2xl text-gray-500 mb-2 tracking-tight">Blog</p>
-              <h2 className="font-grotesk font-bold text-6xl leading-none text-gray-900 tracking-tight">Latest articles</h2>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
-            {[
-              {
-                image: "https://api.builder.io/api/v1/image/assets/TEMP/69d6c8a270b9464370876c31e59d6ad0b81ce70d?width=722",
-                date: "May 20, 2023",
-                title: "How to Solve Issues With Design Web",
-                excerpt: "Used by these companies to maximize their online presence and reach their goals"
-              },
-              {
-                image: "https://api.builder.io/api/v1/image/assets/TEMP/59486e5760ffb7d981123d637c1b3b646acc1939?width=728",
-                date: "May 10, 2023",
-                title: "24 Hours to Improving Design Web",
-                excerpt: "This article explores the potential of design startup web to revolutionize the way businesses create"
-              },
-              {
-                image: "https://api.builder.io/api/v1/image/assets/TEMP/bed74a3a17f75e8e97ad1b4b467af28dfc60357f?width=738",
-                date: "Mar 16, 2023",
-                title: "The Most Innovative Things Happening With Design Web",
-                excerpt: "It provides an in-depth look at the tools and strategies"
-              }
-            ].map((article, index) => (
-              <article key={index} className="group cursor-pointer">
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full h-80 object-cover mb-4 rounded-xl"
-                />
-                <div className="space-y-2">
-                  <time className="font-grotesk text-base text-gray-400 tracking-tight">
-                    {article.date}
-                  </time>
-                  <h3 className="font-grotesk font-bold text-3xl leading-9 text-gray-900 tracking-tight">
-                    {article.title}
-                  </h3>
-                  <p className="font-grotesk text-xl leading-7 text-gray-600">
-                    {article.excerpt}
-                  </p>
+            {/* Project Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+            <Link to="/project/techsonix" className="block relative group cursor-pointer">
+              <img
+                src="/techsonix.png"
+                alt="TECHSONIX SOLUTIONS Project"
+                className="w-full h-80 object-cover rounded-xl"
+              />
+              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-12 h-12 bg-gray-950 rounded-full flex items-center justify-center shadow-lg">
+                  <ArrowUpRight className="w-6 h-6 text-white" />
                 </div>
-              </article>
-            ))}
-          </div>
+              </div>
 
-          <div className="text-center">
-            <a href="#" className="inline-flex items-center justify-center px-8 md:px-32 lg:px-96 py-3 font-grotesk font-bold text-lg md:text-xl gradient-text bg-gray-50 rounded-full border-2 border-gray-200 hover:bg-gray-100 transition-colors">
-              See all articles
-            </a>
+              <div className="mt-4">
+                <h3 className="font-grotesk font-bold text-xl md:text-2xl text-gray-900 mb-2 group-hover:text-[#5227FF] transition-colors">TECHSONIX SOLUTIONS</h3>
+              </div>
+            </Link>
+
+            <Link to="/project/skyminent" className="block relative group cursor-pointer">
+              <div className="w-full h-80 rounded-xl overflow-hidden">
+                <img
+                  src="/skyminent.png"
+                  alt="SKYEMINENT CONSTRUCTIONS Project"
+                  className="w-full h-full object-cover scale-[1.35] origin-center transition-transform duration-700 group-hover:scale-[1.45]"
+                />
+              </div>
+              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-12 h-12 bg-gray-950 rounded-full flex items-center justify-center shadow-lg">
+                  <ArrowUpRight className="w-6 h-6 text-white" />
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <h3 className="font-grotesk font-bold text-xl md:text-2xl text-gray-900 mb-2 group-hover:text-[#5227FF] transition-colors">SKYEMINENT CONSTRUCTIONS</h3>
+              </div>
+            </Link>
+          </div>
           </div>
         </div>
       </section>
+
+
+
 
       {/* Contact Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-10">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="border-t-2 border-gray-200 pt-8 mb-20">
-            <div>
-              <p className="font-lora italic text-2xl text-gray-500 mb-2 tracking-tight">Contacts</p>
-              <h2 className="font-grotesk font-bold text-6xl leading-none text-gray-900 tracking-tight mb-8">Work with us</h2>
-              <p className="font-grotesk text-2xl leading-8 text-gray-600 max-w-4xl mb-8">
+      <section className="py-24 px-4 sm:px-6 lg:px-10">
+        <div className="max-w-[1100px] mx-auto border-t-2 border-gray-200 pt-16">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-16">
+            
+            {/* Left Col: Header and Text */}
+            <div className="flex-1 max-w-2xl">
+              <p className="font-lora italic text-xl md:text-2xl text-gray-500 mb-4 tracking-tight">Contacts</p>
+              <h2 className="font-grotesk font-bold text-3xl md:text-5xl lg:text-6xl leading-none tracking-tight mb-6 gradient-text w-fit">
+                Work with us
+              </h2>
+              <p className="font-grotesk text-xl md:text-2xl leading-relaxed text-gray-600 mb-10">
                 We are eager to learn about your organization and to help you achieve a well-defined out-of-the-box visual strategy.
               </p>
-            </div>
-          </div>
-
-          <div>
-            <div className="mb-8">
-              <p className="font-grotesk text-2xl text-gray-600 mb-2">You can contact us at:</p>
-              <a href="mailto:info@krazy.io" className="font-grotesk font-bold text-5xl text-gray-900 hover:opacity-70 transition-opacity">
-                info@krazy.io
+              
+              <a 
+                href="mailto:contact@krazystudios.in" 
+                className="group inline-flex items-center justify-center px-10 py-4 font-grotesk font-bold text-lg text-white rounded-full bg-gray-900 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-300 active:scale-95"
+              >
+                <span className="group-hover:bg-gradient-to-r group-hover:from-[#00b2ff] group-hover:via-[#d946ef] group-hover:to-[#f97316] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                  contact@krazystudios.in
+                </span>
               </a>
             </div>
 
-            <div className="mb-20">
-              <a href="#" className="inline-flex items-center justify-center px-6 py-3 font-grotesk font-bold text-xl text-white bg-gray-900 rounded-full hover:bg-gray-700 transition-colors">
-                Get in touch
-              </a>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Right Col: Based In & Logo */}
+            <div className="flex flex-col gap-10 md:pt-10">
               <div>
-                <h3 className="font-grotesk text-2xl text-gray-500 mb-3">Based in</h3>
-                <p className="font-grotesk font-bold text-3xl text-gray-900 mb-6">
+                <h3 className="font-lora italic text-xl text-gray-500 mb-3 tracking-tight">Based in</h3>
+                <p className="font-grotesk font-bold text-2xl text-gray-900 mb-1">
                   ★ Pune, Maharastra
                 </p>
-                <p className="font-grotesk text-2xl text-gray-600">
-                  (201) 555-0124
-                </p>
               </div>
 
-              <div>
-                <h3 className="font-grotesk text-2xl text-gray-500 mb-3">Our socials</h3>
-                <div className="space-y-2">
-                  <a href="#" className="block font-grotesk font-bold text-3xl text-gray-900 hover:opacity-70 transition-opacity">
-                    Instagram
-                  </a>
-                  <a href="#" className="block font-grotesk font-bold text-3xl text-gray-900 hover:opacity-70 transition-opacity">
-                    Dribbble
-                  </a>
-                  <a href="#" className="block font-grotesk font-bold text-3xl text-gray-900 hover:opacity-70 transition-opacity">
-                    Twitter
-                  </a>
-                </div>
+              <div className="flex items-center gap-3">
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/3f38f14560d81eee4eb03b2b64866400a760ada5?width=58"
+                  alt="KrazyStudios Logo"
+                  className="w-10 h-10 object-contain"
+                />
+                <span className="font-grotesk font-bold text-2xl text-gray-900">KrazyStudios</span>
               </div>
             </div>
 
-            <div className="mt-16 flex items-center gap-2">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/3f38f14560d81eee4eb03b2b64866400a760ada5?width=58"
-                alt="KrazyStudios Logo"
-                className="w-7 h-8"
-              />
-              <span className="font-grotesk font-bold text-2xl text-gray-900">KrazyStudios</span>
-            </div>
           </div>
         </div>
       </section>
@@ -539,20 +325,16 @@ export default function Index() {
         </div>
 
         {/* Footer Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center h-full" style={{ minHeight: '500px' }}>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full" style={{ minHeight: '300px' }}>
           {/* Giant KRAZYSTUDIOS Wordmark */}
-          <div className="flex items-center justify-center flex-1 w-full px-4">
+          <div className="flex items-center justify-center flex-1 w-full px-4 pt-16">
             <h2
-              className="font-grotesk font-bold text-center select-none"
+              className="font-grotesk font-bold text-center select-none gradient-text"
               style={{
                 fontSize: 'clamp(3rem, 10vw, 10rem)',
                 lineHeight: 1,
                 letterSpacing: '-0.04em',
-                background: 'linear-gradient(135deg, #ffffff 0%, #a855f7 40%, #5227FF 70%, #00b2ff 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                filter: 'drop-shadow(0 0 60px rgba(82, 39, 255, 0.3))',
+                filter: 'drop-shadow(0 0 60px rgba(217, 70, 239, 0.3))',
               }}
             >
               KRAZYSTUDIOS
