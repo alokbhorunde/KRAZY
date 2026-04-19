@@ -70,7 +70,7 @@ export default function Index() {
     <div className="min-h-screen bg-white">
       <Navigation />
 
-      <section className="relative flex min-h-[95vh] items-center overflow-hidden px-4 pb-16 pt-32 sm:px-6 lg:px-10">
+      <section className="relative flex min-h-[80vh] items-center overflow-hidden px-4 pb-12 pt-28 sm:min-h-[95vh] sm:px-6 sm:pb-16 sm:pt-32 lg:px-10">
         <div className="absolute inset-0 z-0">
           <Suspense fallback={null}>
             <Antigravity
@@ -95,28 +95,29 @@ export default function Index() {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-[1100px]">
-          <div className="mb-7">
-            <div className="mb-8 pb-8 text-left">
-              <div className="mb-4 flex flex-wrap items-baseline gap-2 md:mb-6 md:gap-4">
-                <span className="font-grotesk text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-6xl lg:text-8xl">
+          <div className="mb-5 sm:mb-7">
+            <div className="mb-4 pb-4 text-left sm:mb-8 sm:pb-8">
+              <div className="mb-2 md:mb-6">
+                <span className="font-grotesk text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 md:text-6xl lg:text-8xl">
                   We
-                </span>
-                <span className="font-lora text-4xl font-normal italic leading-none tracking-tight text-gray-900 md:text-6xl lg:text-8xl">
+                </span>{" "}
+                <span className="font-lora text-5xl font-normal italic leading-[1.1] tracking-tight text-gray-900 md:text-6xl lg:text-8xl">
                   are a
                 </span>
-                <span className="font-grotesk text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-6xl lg:text-8xl">
-                  Creative
+                <br className="sm:hidden" />
+                <span className="mt-1 block font-grotesk text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:mt-0 sm:inline md:text-6xl lg:text-8xl">
+                  {" "}Creative
                 </span>
               </div>
-              <div className="flex flex-wrap items-baseline justify-start gap-2 md:gap-4">
-                <span className="gradient-text pb-4 font-grotesk text-4xl font-bold leading-relaxed tracking-tight md:text-6xl lg:text-8xl">
+              <div>
+                <span className="gradient-text pb-2 font-grotesk text-5xl font-bold leading-[1.15] tracking-tight sm:pb-4 md:text-6xl lg:text-8xl">
                   Tech & Design Studio
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="mb-7 max-w-4xl">
+          <div className="mb-5 max-w-4xl sm:mb-7">
             <p className="font-grotesk text-lg leading-relaxed text-gray-600 md:text-xl md:leading-8 lg:text-2xl">
               We build bold brands, immersive digital products, and future-forward experiences.{" "}
               <span className="font-bold text-gray-900">Smart. Disruptive. Krazy.</span>
@@ -269,7 +270,7 @@ export default function Index() {
               </a>
             </div>
 
-            <div className="flex flex-col gap-10 md:pt-10">
+            <div className="flex flex-col justify-between gap-10 self-stretch md:pt-14">
               <div>
                 <h3 className="mb-3 font-lora text-xl italic tracking-tight text-gray-500">
                   Based in
