@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
 import { isExternalHttpUrl, siteConfig, type SiteLink } from "@/lib/site-config";
 
-const GhostCursor = lazy(() => import("./GhostCursor"));
+
 
 interface SiteFooterProps {
   variant?: "full" | "minimal";
@@ -74,23 +74,7 @@ export default function SiteFooter({
       className="relative overflow-hidden border-t border-gray-200 bg-gray-950"
       style={{ minHeight: "500px" }}
     >
-      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        <Suspense fallback={null}>
-          <GhostCursor
-            color="#5227FF"
-            brightness={2}
-            edgeIntensity={0}
-            trailLength={50}
-            inertia={0.5}
-            grainIntensity={0.05}
-            bloomStrength={0.1}
-            bloomRadius={1}
-            bloomThreshold={0.025}
-            fadeDelayMs={1000}
-            fadeDurationMs={1500}
-          />
-        </Suspense>
-      </div>
+
 
       <div
         className="relative z-10 flex h-full flex-col items-center justify-center"

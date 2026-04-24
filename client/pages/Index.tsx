@@ -6,7 +6,7 @@ import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
 import { siteConfig } from "@/lib/site-config";
 
-const Antigravity = lazy(() => import("../components/Antigravity"));
+const SplashCursor = lazy(() => import("../components/SplashCursor"));
 
 const services = [
   {
@@ -73,23 +73,20 @@ export default function Index() {
       <section className="relative flex min-h-[80vh] items-center overflow-hidden px-4 pb-12 pt-28 sm:min-h-[95vh] sm:px-6 sm:pb-16 sm:pt-32 lg:px-10">
         <div className="absolute inset-0 z-0">
           <Suspense fallback={null}>
-            <Antigravity
-              count={500}
-              magnetRadius={6}
-              ringRadius={5}
-              waveSpeed={0.4}
-              waveAmplitude={1}
-              particleSize={0.9}
-              lerpSpeed={0.1}
-              color="#A600FF"
-              colors={["#00B2FF", "#A600FF", "#ff0000ff"]}
-              autoAnimate
-              particleVariance={1}
-              rotationSpeed={0}
-              depthFactor={1}
-              pulseSpeed={3}
-              particleShape="capsule"
-              fieldStrength={10}
+            <SplashCursor
+              SIM_RESOLUTION={64}
+              DYE_RESOLUTION={512}
+              PRESSURE_ITERATIONS={10}
+              DENSITY_DISSIPATION={3.5}
+              VELOCITY_DISSIPATION={2.5}
+              PRESSURE={0.05}
+              CURL={4}
+              SPLAT_RADIUS={0.08}
+              SPLAT_FORCE={4000}
+              COLOR_UPDATE_SPEED={10}
+              SHADING={false}
+              RAINBOW_MODE
+              COLOR="#A855F7"
             />
           </Suspense>
         </div>

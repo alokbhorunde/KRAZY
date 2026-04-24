@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
 /**
- * Custom arrow-pointer cursor with the site's brand gradient.
- * Replaces the default OS cursor with the triangular arrow shape
- * from the reference image, filled with a blue→purple→orange gradient.
+ * Custom round cursor with the site's brand gradient.
+ * Optimized for performance on lower-end devices.
  */
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -18,14 +17,15 @@ export default function CustomCursor() {
     typeof window !== "undefined" &&
     ("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
-  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
   const animate = useCallback(() => {
-    posRef.current.x = lerp(posRef.current.x, targetRef.current.x, 0.18);
-    posRef.current.y = lerp(posRef.current.y, targetRef.current.y, 0.18);
+    // High interpolation factor (0.8) makes it track almost instantly
+    // This removes the "laggy" visual feeling while keeping it slightly smooth
+    posRef.current.x += (targetRef.current.x - posRef.current.x) * 0.8;
+    posRef.current.y += (targetRef.current.y - posRef.current.y) * 0.8;
 
     if (cursorRef.current) {
-      cursorRef.current.style.transform = `translate3d(${posRef.current.x}px, ${posRef.current.y}px, 0) ${clicking ? "scale(0.85)" : "scale(1)"}`;
+      // Offset by -12px to center the 24x24 pixel circle exactly on the pointer
+      cursorRef.current.style.transform = `translate3d(${posRef.current.x - 12}px, ${posRef.current.y - 12}px, 0) ${clicking ? "scale(0.85)" : "scale(1)"}`;
     }
     rafRef.current = requestAnimationFrame(animate);
   }, [clicking]);
@@ -72,39 +72,19 @@ export default function CustomCursor() {
         position: "fixed",
         top: 0,
         left: 0,
-        width: 32,
-        height: 32,
+        width: 24,
+        height: 24,
+        borderRadius: "50%",
+        background: "linear-gradient(135deg, #00B2FF 0%, #A600FF 45%, #FF6200 100%)",
+        border: "1.2px solid black",
         pointerEvents: "none",
         zIndex: 99999,
         opacity: visible ? 1 : 0,
-        transition: "opacity 0.15s ease",
+        transition: "opacity 0.1s ease",
         willChange: "transform",
+        // Using a basic CSS box-shadow instead of an expensive SVG filter for maximum performance
+        boxShadow: "0 2px 6px rgba(0,0,0,0.15)"
       }}
-    >
-      <svg
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ display: "block", filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.18))" }}
-      >
-        <defs>
-          <linearGradient id="cursor-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#00B2FF" />
-            <stop offset="45%" stopColor="#A600FF" />
-            <stop offset="100%" stopColor="#FF6200" />
-          </linearGradient>
-        </defs>
-        {/* Arrow pointer shape — matches the reference image silhouette */}
-        <path
-          d="M5 2 L27 15 L15 17 L11 29 Z"
-          fill="url(#cursor-grad)"
-          stroke="black"
-          strokeWidth="1.2"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </div>
+    />
   );
 }

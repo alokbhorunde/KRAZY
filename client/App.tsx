@@ -4,7 +4,7 @@ import { Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
-import CustomCursor from "./components/CustomCursor";
+
 
 const Index = lazy(() => import("./pages/Index"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
@@ -15,7 +15,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const App = () => (
   <BrowserRouter>
     <ScrollToTop />
-    <CustomCursor />
+
     <Suspense fallback={<div className="min-h-screen bg-white" />}>
       <Routes>
         <Route path="/" element={<Index />} />

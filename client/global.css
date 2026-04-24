@@ -2,12 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hide native cursor globally — replaced by CustomCursor component */
-*, *::before, *::after {
-  cursor: none !important;
-}
+/* Native cursor restored */
 
 @layer base {
+
   /**
    * Tailwind CSS theme — LIGHT MODE
    * All color variables expressed as HSL values.
@@ -99,7 +97,7 @@
 
   body {
     @apply bg-background text-foreground font-grotesk;
-    background-image: 
+    background-image:
       linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
     background-size: 160px 160px;
     background-position: center center;
@@ -138,6 +136,7 @@
     0% {
       transform: translateX(0);
     }
+
     100% {
       transform: translateX(-50%);
     }
@@ -149,7 +148,7 @@
 
   /* Background grid pattern */
   .bg-grid {
-    background-image: 
+    background-image:
       linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
     background-size: 160px 160px;
     background-position: center center;
