@@ -8,7 +8,7 @@ interface BrandLogoProps {
 export default function BrandLogo({ className }: BrandLogoProps) {
   return (
     <img
-      src="/logo_krazy.png"
+      src="/logo_krazy.webp"
       alt={`${siteConfig.brandName} logo`}
       className={cn("h-auto w-full object-contain", className)}
       loading="eager"

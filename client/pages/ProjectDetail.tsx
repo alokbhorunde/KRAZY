@@ -1,6 +1,7 @@
 import { useParams, Navigate } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
+import SEO from "../components/SEO";
 import { siteConfig } from "@/lib/site-config";
 
 type ProjectData = {
@@ -404,6 +405,10 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO 
+        title={`${project.title} — Krazy Studios Case Study`}
+        description={`Explore the ${project.title} case study by Krazy Studios. Category: ${project.category}.`}
+      />
       <Navigation />
 
       {/* Main Content Area */}

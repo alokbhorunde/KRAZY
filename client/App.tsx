@@ -3,6 +3,7 @@ import "./global.css";
 import { Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "./components/ScrollToTop";
 
 
@@ -13,8 +14,9 @@ const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => (
-  <BrowserRouter>
-    <ScrollToTop />
+  <HelmetProvider>
+    <BrowserRouter>
+      <ScrollToTop />
 
     <Suspense fallback={<div className="min-h-screen bg-white" />}>
       <Routes>
@@ -27,6 +29,7 @@ const App = () => (
       </Routes>
     </Suspense>
   </BrowserRouter>
+  </HelmetProvider>
 );
 
 createRoot(document.getElementById("root")!).render(<App />);

@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import BrandLogo from "../components/BrandLogo";
 import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
+import SEO from "../components/SEO";
 import { siteConfig } from "@/lib/site-config";
 
 const SplashCursor = lazy(() => import("../components/SplashCursor"));
@@ -12,32 +13,32 @@ const services = [
   {
     title: "Creative Branding",
     description: "Crafting unforgettable identities and visual systems that turn heads.",
-    image: "/creative_branding.png",
+    image: "/creative_branding.webp",
   },
   {
     title: "UI/UX Design",
     description: "Designing sleek, intuitive interfaces that users love to use.",
-    image: "/ui_ux.png",
+    image: "/ui_ux.webp",
   },
   {
     title: "Logo Design",
     description: "Creating iconic symbols that capture your brand's essence.",
-    image: "/logo_design.png",
+    image: "/logo_design.webp",
   },
   {
     title: "Poster Design",
     description: "Eye-catching visuals that demand attention and inspire action.",
-    image: "/poster_design.png",
+    image: "/poster_design.webp",
   },
   {
     title: "Web & App Development",
     description: "Building digital experiences that work seamlessly across all devices.",
-    image: "/webdev.png",
+    image: "/webdev.webp",
   },
   {
     title: "Creative Strategy",
     description: "Strategic thinking that transforms ideas into impactful solutions.",
-    image: "/krazystudiosabout.avif",
+    image: "/krazystudiosabout.webp",
   },
 ] as const;
 
@@ -45,19 +46,19 @@ const projects = [
   {
     id: "safer",
     title: "SAFER - Women Safety Mobile App (UI/UX Case Study)",
-    image: "/safer.png.png",
+    image: "/safer.png.webp",
     alt: "SAFER women safety mobile app case study",
   },
   {
     id: "techsonix",
     title: "TECHSONIX SOLUTIONS",
-    image: "/techsonix.png",
+    image: "/techsonix.webp",
     alt: "Techsonix Solutions project",
   },
   {
     id: "skyminent",
     title: "SKYEMINENT CONSTRUCTIONS",
-    image: "/skyminent.png",
+    image: "/skyminent.webp",
     alt: "Skyeminent Constructions project",
   },
 ] as const;
@@ -68,6 +69,10 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO 
+        title="Krazy Studios — Creative UI/UX & Digital Design Studio in Pune, India"
+        description="Krazy Studios is a creative digital design agency in Pune, India, specializing in UI/UX design, branding, web design, and immersive digital experiences."
+      />
       <Navigation />
 
       <section className="relative flex min-h-[80vh] items-center overflow-hidden px-4 pb-12 pt-28 sm:min-h-[95vh] sm:px-6 sm:pb-16 sm:pt-32 lg:px-10">
@@ -93,7 +98,7 @@ export default function Index() {
 
         <div className="relative z-10 mx-auto w-full max-w-[1100px]">
           <div className="mb-5 sm:mb-7">
-            <div className="mb-4 pb-4 text-left sm:mb-8 sm:pb-8">
+            <h1 className="mb-4 text-left sm:mb-8 sm:pb-8">
               <div className="mb-2 md:mb-6">
                 <span className="font-grotesk text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 md:text-6xl lg:text-8xl">
                   We
@@ -111,12 +116,12 @@ export default function Index() {
                   Tech & Design Studio
                 </span>
               </div>
-            </div>
+            </h1>
           </div>
 
           <div className="mb-5 max-w-4xl sm:mb-7">
             <p className="font-grotesk text-lg leading-relaxed text-gray-600 md:text-xl md:leading-8 lg:text-2xl">
-              We build bold brands, immersive digital products, and future-forward experiences.{" "}
+              We build bold brands, immersive digital experiences, and future-forward web designs from Pune, India.{" "}
               <span className="font-bold text-gray-900">Smart. Disruptive. Krazy.</span>
             </p>
           </div>
@@ -158,6 +163,8 @@ export default function Index() {
                     <img
                       src={service.image}
                       alt={service.title}
+                      width="256"
+                      height="256"
                       className="h-full w-full object-cover"
                       loading="lazy"
                       decoding="async"
@@ -188,7 +195,10 @@ export default function Index() {
                 <img
                   src={featuredProject.image}
                   alt={featuredProject.alt}
+                  width="950"
+                  height="500"
                   className="h-96 w-full rounded-xl object-cover md:h-[450px] lg:h-[500px]"
+                  loading="eager"
                   decoding="async"
                 />
                 <div className="absolute right-4 top-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -216,6 +226,8 @@ export default function Index() {
                     <img
                       src={project.image}
                       alt={project.alt}
+                      width="475"
+                      height="320"
                       className={`h-full w-full object-cover transition-transform duration-700 ${project.id === "skyminent"
                         ? "scale-[1.35] origin-center group-hover:scale-[1.45]"
                         : ""

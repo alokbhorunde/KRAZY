@@ -1,5 +1,6 @@
 import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
+import SEO from "../components/SEO";
 
 export default function About() {
   const values = [
@@ -23,6 +24,10 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO 
+        title="About Krazy Studios — Creative Digital Agency in Pune"
+        description="Learn about Krazy Studios, a digital design agency based in Pune, India. We specialize in UI/UX, branding, and modern web experiences."
+      />
       <Navigation />
 
       <section className="relative mx-auto flex min-h-[65vh] max-w-[1100px] flex-col justify-center px-4 pb-20 pt-40 sm:px-6 lg:px-10">

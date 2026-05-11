@@ -1,10 +1,15 @@
 import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
+import SEO from "../components/SEO";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Contact() {
   return (
     <div className="flex min-h-screen flex-col bg-white">
+      <SEO 
+        title="Contact Krazy Studios — Let's Build Something Krazy"
+        description="Get in touch with Krazy Studios. We are a digital design agency ready to collaborate on your next UI/UX, branding, or web design project."
+      />
       <Navigation />
 
       <main className="relative mx-auto flex w-full max-w-[1100px] flex-1 flex-col px-4 pb-20 pt-32 sm:px-6 lg:px-10">
