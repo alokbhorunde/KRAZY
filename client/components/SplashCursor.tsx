@@ -18,7 +18,8 @@ export default function SplashCursor({
   RAINBOW_MODE = true,
   COLOR = '#ff0000',
   position = 'absolute',
-  zIndex = 0
+  zIndex = 0,
+  paused = false
 }: {
   SIM_RESOLUTION?: number;
   DYE_RESOLUTION?: number;
@@ -38,9 +39,15 @@ export default function SplashCursor({
   COLOR?: string;
   position?: 'absolute' | 'fixed';
   zIndex?: number;
+  paused?: boolean;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameId = useRef<number | null>(null);
+  const pausedRef = useRef(paused);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+  }, [paused]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

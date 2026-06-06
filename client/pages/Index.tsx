@@ -68,7 +68,7 @@ const projects = [
 ] as const;
 
 export default function Index() {
-  const { openModal } = useBookingModal();
+  const { isOpen, openModal } = useBookingModal();
 
   return (
     <div className="min-h-screen bg-white">
@@ -78,23 +78,25 @@ export default function Index() {
       />
       
       <Suspense fallback={null}>
-        <SplashCursor
-          position="fixed"
-          zIndex={0}
-          SIM_RESOLUTION={64}
-          DYE_RESOLUTION={512}
-          PRESSURE_ITERATIONS={10}
-          DENSITY_DISSIPATION={3.5}
-          VELOCITY_DISSIPATION={2.5}
-          PRESSURE={0.05}
-          CURL={4}
-          SPLAT_RADIUS={0.08}
-          SPLAT_FORCE={4000}
-          COLOR_UPDATE_SPEED={10}
-          SHADING={false}
-          RAINBOW_MODE
-          COLOR="#A855F7"
-        />
+        {!isOpen && (
+          <SplashCursor
+            position="fixed"
+            zIndex={0}
+            SIM_RESOLUTION={64}
+            DYE_RESOLUTION={512}
+            PRESSURE_ITERATIONS={10}
+            DENSITY_DISSIPATION={3.5}
+            VELOCITY_DISSIPATION={2.5}
+            PRESSURE={0.05}
+            CURL={4}
+            SPLAT_RADIUS={0.08}
+            SPLAT_FORCE={4000}
+            COLOR_UPDATE_SPEED={10}
+            SHADING={false}
+            RAINBOW_MODE
+            COLOR="#A855F7"
+          />
+        )}
       </Suspense>
 
       <Navigation />

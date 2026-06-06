@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 export default function BookingModal() {
   const { isOpen, closeModal } = useBookingModal();
   const [shouldRenderIframe, setShouldRenderIframe] = useState(false);
-  const [iframeLoading, setIframeLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Defer rendering of the iframe for 1.5 seconds after page mount
   // to prioritize the main website's initial load speed.
@@ -18,10 +18,11 @@ export default function BookingModal() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Prevent scrolling when open
+  // Prevent scrolling when open, and force render iframe immediately if opened early
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      setShouldRenderIframe(true);
     } else {
       document.body.style.overflow = "";
     }
@@ -59,7 +60,7 @@ export default function BookingModal() {
       {/* Backdrop Overlay */}
       <div
         onClick={closeModal}
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+        className="fixed inset-0 bg-black/60"
       />
 
       {/* Modal Container */}
@@ -72,13 +73,13 @@ export default function BookingModal() {
         className="relative z-10 flex h-[85vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border-2 border-black bg-white shadow-[8px_8px_0px_0px_#000000]"
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b-2 border-black bg-[#fafafa] p-6 md:p-8">
+        <div className="flex items-start justify-between border-b-2 border-black bg-[#fafafa] p-6 md:p-8 shrink-0">
           <div className="max-w-[80%]">
             <h3 className="font-grotesk text-2xl font-black leading-tight text-gray-900 md:text-3xl">
               Book a Free Discovery Call
             </h3>
             <p className="mt-2 font-grotesk text-sm text-gray-600 md:text-base leading-relaxed">
-              Let's discuss your project, goals, timeline, and how Krazy Studios can help bring your ideas to life.
+              Select one of our discovery call types below to view our calendar and secure a time slot.
             </p>
           </div>
 
@@ -92,23 +93,23 @@ export default function BookingModal() {
           </button>
         </div>
 
-        {/* Iframe Body Container */}
-        <div className="relative flex-1 bg-white">
-          {iframeLoading && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-white">
-              {/* Neubrutalist Spinner / Loader */}
-              <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-[#5227FF]" />
-              <p className="mt-4 font-grotesk text-sm font-bold text-gray-500">Loading Calendar...</p>
-            </div>
-          )}
-          
+        {/* Body Section */}
+        <div className="relative flex-1 overflow-hidden bg-white flex flex-col">
           {shouldRenderIframe && (
-            <iframe
-              src={`${siteConfig.calComUrl}?embed=true`}
-              style={{ width: "100%", height: "100%", border: 0 }}
-              title="Book a Free Discovery Call"
-              onLoad={() => setIframeLoading(false)}
-            />
+            <div className="flex-1 bg-white relative w-full h-full">
+              {isLoading && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white z-10">
+                  <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-[#5227FF]" />
+                  <p className="mt-4 font-grotesk text-sm font-bold text-gray-500">Loading Calendar...</p>
+                </div>
+              )}
+              <iframe
+                src={`${siteConfig.calComMainUrl}?embed=true`}
+                style={{ width: "100%", height: "100%", border: 0 }}
+                title="Book a Free Discovery Call"
+                onLoad={() => setIsLoading(false)}
+              />
+            </div>
           )}
         </div>
       </motion.div>

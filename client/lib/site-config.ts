@@ -35,9 +35,17 @@ export const siteConfig = {
     import.meta.env.VITE_PUBLIC_WHATSAPP_URL,
     "https://wa.me/917387698979",
   ),
-  calComUrl: getEnvValue(
-    import.meta.env.VITE_PUBLIC_CALCOM_URL,
+  calComMainUrl: getEnvValue(
+    import.meta.env.VITE_PUBLIC_CALCOM_MAIN_URL,
+    "https://cal.com/krazystudios",
+  ),
+  calComFreeDiscoveryUrl: getEnvValue(
+    import.meta.env.VITE_PUBLIC_CALCOM_FREE_DISCOVERY_URL,
     "https://cal.com/krazystudios/free-discovery-call",
+  ),
+  calComBrandIdentityUrl: getEnvValue(
+    import.meta.env.VITE_PUBLIC_CALCOM_BRAND_IDENTITY_URL,
+    "https://cal.com/krazystudios/brand-identity-discovery-call",
   ),
   locationLabel: getEnvValue(
     import.meta.env.VITE_PUBLIC_LOCATION_LABEL,
