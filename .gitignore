@@ -30,3 +30,6 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Reference HTML downloads containing credentials
+public/*Behance.html
