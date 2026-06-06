@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
 import SEO from "../components/SEO";
@@ -38,7 +39,7 @@ export default function About() {
 
         <div className="max-w-4xl space-y-8">
           <p className="font-grotesk text-xl leading-relaxed text-gray-600 md:text-2xl">
-            Krazy Studios is a creative design studio dedicated to crafting bold, impactful, and meaningful digital experiences. We specialise in UI/UX design, brand identity, and product thinking, transforming ideas into visually compelling and user-focused solutions.
+            We're a Pune-based creative studio that has shipped 50+ projects for startups and growing brands. We do branding, UI/UX, and web development — and we care deeply about every pixel.
           </p>
           <p className="font-grotesk text-xl leading-relaxed text-gray-600 md:text-2xl">
             Built on the belief that great design is both strategic and intuitive, Krazy Studios operates as a flexible and evolving creative unit. We collaborate with startups, brands, and individuals, adapting to each project's unique vision to deliver scalable, high-quality design systems that stand out.
@@ -60,7 +61,7 @@ export default function About() {
           {values.map((value, index) => (
             <div
               key={value.title}
-              className="group rounded-none border-2 border-black bg-[#fafafa] p-10 shadow-[4px_4px_0px_0px_#000000] transition-all duration-300 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#000000] md:p-12"
+              className="group rounded-3xl border-2 border-black bg-[#fafafa] p-10 shadow-[4px_4px_0px_0px_#000000] transition-all duration-300 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#000000] md:p-12"
             >
               <span className="mb-5 block font-grotesk text-lg font-extrabold uppercase tracking-widest text-gray-400 transition-colors">
                 0{index + 1}
@@ -73,6 +74,18 @@ export default function About() {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="mx-auto max-w-[1100px] px-4 pb-20 pt-10 text-center sm:pb-32 sm:px-6 lg:px-10">
+        <div className="border-t-2 border-gray-200 pt-16 flex flex-col items-center">
+          <Link
+            to="/contact"
+            className="inline-flex items-center justify-center rounded-full bg-[#5227FF] text-white border-2 border-black px-10 py-4 font-grotesk text-lg font-bold shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
+          >
+            <span>Like what you see? Let's work together &rarr;</span>
+          </Link>
         </div>
       </section>
 

@@ -31,13 +31,13 @@ export const siteConfig = {
   brandName: "KrazyStudios",
   contactEmail,
   contactEmailHref: `mailto:${contactEmail}`,
-  calendlyUrl: getEnvValue(
-    import.meta.env.VITE_PUBLIC_CALENDLY_URL,
-    "https://calendly.com/krazystudios",
-  ),
   whatsappUrl: getEnvValue(
     import.meta.env.VITE_PUBLIC_WHATSAPP_URL,
     "https://wa.me/917387698979",
+  ),
+  calComUrl: getEnvValue(
+    import.meta.env.VITE_PUBLIC_CALCOM_URL,
+    "https://cal.com/krazystudios/free-discovery-call",
   ),
   locationLabel: getEnvValue(
     import.meta.env.VITE_PUBLIC_LOCATION_LABEL,

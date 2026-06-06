@@ -6,6 +6,7 @@ import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
 import SEO from "../components/SEO";
 import { siteConfig } from "@/lib/site-config";
+import { useBookingModal } from "../hooks/use-booking-modal";
 
 const SplashCursor = lazy(() => import("../components/SplashCursor"));
 
@@ -67,6 +68,7 @@ const projects = [
 ] as const;
 
 export default function Index() {
+  const { openModal } = useBookingModal();
 
   return (
     <div className="min-h-screen bg-white">
@@ -199,12 +201,12 @@ export default function Index() {
                 <Link
                   key={project.id}
                   to={`/project/${project.id}`}
-                  className="group flex flex-col justify-between h-full cursor-pointer border-2 border-black bg-white p-4 rounded-none shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#000000] transition-all duration-200"
+                  className="group flex flex-col justify-between h-full cursor-pointer border-2 border-black bg-white p-4 rounded-2xl shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#000000] transition-all duration-200"
                 >
                   <div className="flex flex-col h-full justify-between">
                     <div>
                       {/* Image Container with Zoom effect */}
-                      <div className="relative aspect-[2/1] w-full overflow-hidden rounded-none border-2 border-black bg-gray-50">
+                      <div className="relative aspect-[2/1] w-full overflow-hidden rounded-xl border-2 border-black bg-gray-50">
                         <img
                           src={project.image}
                           alt={project.alt}
@@ -224,14 +226,14 @@ export default function Index() {
                             {project.tags.map((tag) => (
                               <span
                                 key={tag}
-                                className="inline-flex items-center rounded-none bg-white border border-black px-2.5 py-0.5 text-xs font-bold text-black"
+                                className="inline-flex items-center rounded-full bg-white border border-black px-2.5 py-0.5 text-xs font-bold text-black"
                               >
                                 {tag}
                               </span>
                             ))}
                           </div>
                         </div>
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-300 group-hover:bg-[#5227FF] group-hover:text-white shadow-[2px_2px_0px_0px_#000000] group-hover:shadow-[3px_3px_0px_0px_#000000] group-hover:-translate-x-[1px] group-hover:-translate-y-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000000]">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-black bg-white transition-all duration-300 group-hover:bg-[#5227FF] group-hover:text-white shadow-[2px_2px_0px_0px_#000000] group-hover:shadow-[3px_3px_0px_0px_#000000] group-hover:-translate-x-[1px] group-hover:-translate-y-[1px] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000000]">
                           <ArrowUpRight className="h-5 w-5 text-gray-900 transition-colors group-hover:text-white" />
                         </div>
                       </div>
@@ -259,12 +261,20 @@ export default function Index() {
                 well-defined out-of-the-box visual strategy.
               </p>
 
-              <a
-                href={siteConfig.contactEmailHref}
-                className="inline-flex items-center justify-center rounded-none bg-[#5227FF] text-white border-2 border-black px-10 py-4 font-grotesk text-lg font-bold shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all"
-              >
-                <span>{siteConfig.contactEmail}</span>
-              </a>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href={siteConfig.contactEmailHref}
+                  className="inline-flex items-center justify-center rounded-full bg-white text-gray-900 border-2 border-black px-10 py-4 font-grotesk text-lg font-bold shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all"
+                >
+                  <span>Email Us</span>
+                </a>
+                <button
+                  onClick={openModal}
+                  className="inline-flex items-center justify-center rounded-full bg-[#5227FF] text-white border-2 border-black px-10 py-4 font-grotesk text-lg font-bold shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all"
+                >
+                  <span>Book a Free Call &rarr;</span>
+                </button>
+              </div>
             </div>
 
             <div className="flex flex-col justify-between gap-10 self-stretch md:pt-14">

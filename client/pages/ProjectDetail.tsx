@@ -1,4 +1,4 @@
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
 import SEO from "../components/SEO";
@@ -8,6 +8,8 @@ type ProjectData = {
   title: string;
   category: string;
   duration: string;
+  tools: string;
+  year: string;
   behance: string;
   renderContent: () => React.ReactNode;
 };
@@ -17,6 +19,8 @@ const projectsData: Record<string, ProjectData> = {
     title: "SAFER – Women’s Safety App",
     category: "App Design",
     duration: "2 weeks",
+    tools: "Figma, React Native",
+    year: "2024",
     behance: siteConfig.projectCaseStudies.safer,
     renderContent: () => (
       <>
@@ -96,6 +100,8 @@ const projectsData: Record<string, ProjectData> = {
     title: "Techsonix Solutions",
     category: "Brand Identity",
     duration: "2 weeks",
+    tools: "Illustrator, Photoshop",
+    year: "2024",
     behance: siteConfig.projectCaseStudies.techsonix,
     renderContent: () => (
       <>
@@ -238,6 +244,8 @@ const projectsData: Record<string, ProjectData> = {
     title: "Skyminent Construction",
     category: "Brand Identity",
     duration: "2 weeks",
+    tools: "Illustrator, Photoshop",
+    year: "2024",
     behance: siteConfig.projectCaseStudies.skyminent,
     renderContent: () => (
       <>
@@ -467,7 +475,7 @@ export default function ProjectDetail() {
                     href={project.behance} 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-8 py-3.5 bg-[#5227FF] text-white border-2 border-black rounded-none font-grotesk font-semibold shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
+                    className="inline-flex items-center justify-center px-8 py-3.5 bg-[#5227FF] text-white border-2 border-black rounded-full font-grotesk font-semibold shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
                   >
                     <span>View Case Study ↗</span>
                   </a>
@@ -475,9 +483,9 @@ export default function ProjectDetail() {
 
               </div>
 
-              {/* Right Column (Category, Duration) */}
+              {/* Right Column (Category, Duration, Tools, Year, CTA) */}
               <div className="md:col-span-5 md:pl-10">
-                <div className="flex flex-col gap-12 sticky top-32">
+                <div className="flex flex-col gap-10 sticky top-32">
                   <div>
                     <h4 className="font-grotesk font-bold text-xl text-gray-900 mb-2">Category</h4>
                     <p className="font-grotesk text-lg text-gray-700">{project.category}</p>
@@ -485,6 +493,22 @@ export default function ProjectDetail() {
                   <div>
                     <h4 className="font-grotesk font-bold text-xl text-gray-900 mb-2">Duration</h4>
                     <p className="font-grotesk text-lg text-gray-700">{project.duration}</p>
+                  </div>
+                  <div>
+                    <h4 className="font-grotesk font-bold text-xl text-gray-900 mb-2">Tools</h4>
+                    <p className="font-grotesk text-lg text-gray-700">{project.tools}</p>
+                  </div>
+                  <div>
+                    <h4 className="font-grotesk font-bold text-xl text-gray-900 mb-2">Year</h4>
+                    <p className="font-grotesk text-lg text-gray-700">{project.year}</p>
+                  </div>
+                  <div className="pt-4">
+                    <Link
+                      to="/contact"
+                      className="inline-flex items-center justify-center w-full px-6 py-3.5 bg-[#5227FF] text-white border-2 border-black rounded-full font-grotesk font-bold shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200 text-center"
+                    >
+                      <span>Start a similar project &rarr;</span>
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -8,6 +8,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 
 import WhatsAppFAB from "./components/WhatsAppFAB";
+import BookingModal from "./components/BookingModal";
 
 const Index = lazy(() => import("./pages/Index"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
@@ -33,6 +34,7 @@ const App = () => (
         </Routes>
       </Suspense>
       <WhatsAppFAB />
+      <BookingModal />
     </BrowserRouter>
   </HelmetProvider>
 );

@@ -2,7 +2,8 @@
 
 interface ImportMetaEnv {
   readonly VITE_PUBLIC_CONTACT_EMAIL?: string;
-  readonly VITE_PUBLIC_CALENDLY_URL?: string;
+  readonly VITE_PUBLIC_CALCOM_URL?: string;
+  readonly VITE_PUBLIC_WHATSAPP_URL?: string;
   readonly VITE_PUBLIC_LOCATION_LABEL?: string;
   readonly VITE_PUBLIC_PROJECT_SAFER_URL?: string;
   readonly VITE_PUBLIC_PROJECT_TECHSONIX_URL?: string;

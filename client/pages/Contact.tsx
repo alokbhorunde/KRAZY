@@ -2,8 +2,11 @@ import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
 import SEO from "../components/SEO";
 import { siteConfig } from "@/lib/site-config";
+import { useBookingModal } from "../hooks/use-booking-modal";
 
 export default function Contact() {
+  const { openModal } = useBookingModal();
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <SEO 
@@ -50,7 +53,7 @@ export default function Contact() {
                 href={siteConfig.whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3 font-grotesk text-lg font-bold bg-[#25D366] text-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
+                className="inline-flex items-center justify-center px-8 py-3 font-grotesk text-lg font-bold bg-[#25D366] text-white border-2 border-black rounded-full shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
               >
                 <span>Chat Now</span>
               </a>
@@ -62,14 +65,12 @@ export default function Contact() {
                 Let's have a Call
               </h2>
               <p className="mb-6 font-grotesk text-2xl font-bold text-gray-900">Book a Call</p>
-              <a
-                href={siteConfig.calendlyUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3 font-grotesk text-lg font-bold bg-[#5227FF] text-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
+              <button
+                onClick={openModal}
+                className="inline-flex items-center justify-center px-8 py-3 font-grotesk text-lg font-bold bg-[#5227FF] text-white border-2 border-black rounded-full shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
               >
                 <span>Book Now</span>
-              </a>
+              </button>
               <p className="mt-4 font-grotesk text-sm text-gray-500">30 min free discovery call</p>
             </div>
           </div>
