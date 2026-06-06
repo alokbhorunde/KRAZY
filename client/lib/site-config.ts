@@ -35,6 +35,10 @@ export const siteConfig = {
     import.meta.env.VITE_PUBLIC_CALENDLY_URL,
     "https://calendly.com/krazystudios",
   ),
+  whatsappUrl: getEnvValue(
+    import.meta.env.VITE_PUBLIC_WHATSAPP_URL,
+    "https://wa.me/917387698979",
+  ),
   locationLabel: getEnvValue(
     import.meta.env.VITE_PUBLIC_LOCATION_LABEL,
     "Pune, Maharashtra",

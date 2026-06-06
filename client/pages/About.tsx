@@ -30,7 +30,7 @@ export default function About() {
       />
       <Navigation />
 
-      <section className="relative mx-auto flex min-h-[65vh] max-w-[1100px] flex-col justify-center px-4 pb-20 pt-40 sm:px-6 lg:px-10">
+      <section className="relative mx-auto flex min-h-[65vh] max-w-[1100px] flex-col justify-center px-4 pb-10 pt-24 sm:pb-20 sm:pt-40 lg:px-10">
         <p className="mb-6 font-lora text-xl italic tracking-tight text-gray-500 md:text-2xl">Based in India</p>
         <h1 className="gradient-text mb-10 w-fit font-grotesk text-3xl font-bold leading-none tracking-tight md:text-5xl lg:text-6xl">
           About Us
@@ -46,8 +46,8 @@ export default function About() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1100px] px-4 py-20 sm:px-6 lg:px-10">
-        <div className="mb-20 flex flex-col items-start justify-between border-t-2 border-gray-200 pt-16 md:flex-row md:items-center">
+      <section className="mx-auto max-w-[1100px] px-4 py-10 sm:py-20 sm:px-6 lg:px-10">
+        <div className="mb-10 sm:mb-20 flex flex-col items-start justify-between border-t-2 border-gray-200 pt-10 sm:pt-16 md:flex-row md:items-center">
           <h2 className="gradient-text font-grotesk text-3xl font-bold leading-none tracking-tight md:text-5xl lg:text-6xl">
             Our Values
           </h2>
@@ -56,16 +56,16 @@ export default function About() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {values.map((value, index) => (
             <div
               key={value.title}
-              className="group rounded-[2rem] border border-gray-100 bg-[#fafafa] p-10 transition-all duration-300 hover:border-gray-200 hover:bg-white hover:shadow-[0_8px_40px_rgba(0,0,0,0.06)] md:p-12"
+              className="group rounded-none border-2 border-black bg-[#fafafa] p-10 shadow-[4px_4px_0px_0px_#000000] transition-all duration-300 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#000000] md:p-12"
             >
-              <span className="mb-5 block font-grotesk text-lg font-bold uppercase tracking-widest text-gray-300 transition-colors group-hover:text-gray-400">
+              <span className="mb-5 block font-grotesk text-lg font-extrabold uppercase tracking-widest text-gray-400 transition-colors">
                 0{index + 1}
               </span>
-              <h3 className="mb-5 w-fit font-grotesk text-3xl font-bold leading-tight text-gray-900 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-[#00b2ff] group-hover:via-[#d946ef] group-hover:to-[#f97316] group-hover:bg-clip-text group-hover:text-transparent md:text-4xl">
+              <h3 className="mb-5 w-fit font-grotesk text-3xl font-bold leading-tight text-gray-900 md:text-4xl group-hover:text-[#5227FF] transition-colors duration-200">
                 {value.title}
               </h3>
               <p className="font-grotesk text-lg font-medium leading-relaxed text-gray-600 md:text-xl">
@@ -76,7 +76,7 @@ export default function About() {
         </div>
       </section>
 
-      <SiteFooter variant="minimal" />
+      <SiteFooter />
     </div>
   );
 }

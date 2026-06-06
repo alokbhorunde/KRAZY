@@ -412,10 +412,10 @@ export default function ProjectDetail() {
       <Navigation />
 
       {/* Main Content Area */}
-      <main className="pt-32 pb-24">
+      <main className="pt-24 pb-12 sm:pt-32 sm:pb-24">
         {/* Top Header Section */}
         <section className="px-4 sm:px-6 lg:px-10">
-          <div className="max-w-[1100px] mx-auto min-h-[40vh] flex flex-col justify-end pb-12 border-b border-gray-100 relative">
+          <div className="max-w-[1100px] mx-auto min-h-[40vh] flex flex-col justify-end pb-6 sm:pb-12 border-b border-gray-100 relative">
             
             {/* Subtle background vertical lines */}
             <div className="absolute inset-x-0 h-full w-full pointer-events-none flex justify-around">
@@ -448,7 +448,7 @@ export default function ProjectDetail() {
         </section>
 
         {/* Detailed Info Grid */}
-        <section className="px-4 sm:px-6 lg:px-10 mt-16">
+        <section className="px-4 sm:px-6 lg:px-10 mt-8 sm:mt-16">
           <div className="max-w-[1100px] mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 relative">
               
@@ -467,9 +467,9 @@ export default function ProjectDetail() {
                     href={project.behance} 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-8 py-3.5 bg-gray-950 text-white rounded-full font-grotesk font-semibold hover:bg-gray-800 transition-colors"
+                    className="inline-flex items-center justify-center px-8 py-3.5 bg-[#5227FF] text-white border-2 border-black rounded-none font-grotesk font-semibold shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
                   >
-                    <span className="bg-gradient-to-r from-[#a855f7] to-[#5227FF] bg-clip-text text-transparent">View Case Study ↗</span>
+                    <span>View Case Study ↗</span>
                   </a>
                 </div>
 

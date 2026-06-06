@@ -12,32 +12,49 @@ export default function Contact() {
       />
       <Navigation />
 
-      <main className="relative mx-auto flex w-full max-w-[1100px] flex-1 flex-col px-4 pb-20 pt-32 sm:px-6 lg:px-10">
+      <main className="relative mx-auto flex w-full max-w-[1100px] flex-1 flex-col px-4 pb-10 pt-24 sm:pb-20 sm:pt-32 lg:px-10">
         <div className="flex max-w-4xl flex-1 flex-col justify-center">
           <p className="mb-6 block font-grotesk text-sm font-bold uppercase tracking-widest text-gray-400">
-            KRAZY STUDIOS
+            LET'S WORK TOGETHER
           </p>
 
           <h1 className="mb-8 font-grotesk text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-            Designing Bold <br className="hidden md:block" />
-            <span className="gradient-text">Digital Experiences</span>
+            Got an idea? <br className="hidden md:block" />
+            <span className="gradient-text">Let's build it.</span>
           </h1>
 
           <p className="mb-16 max-w-3xl font-grotesk text-xl leading-relaxed text-gray-600 md:text-2xl">
-            Have a project in mind, an idea to explore, or just want to collaborate? We would love to hear from you.
+            Whether it's a brand, a website, or a full product — tell us what you're building and we'll tell you how we can make it extraordinary.
           </p>
 
-          <div className="grid grid-cols-1 gap-12 border-t border-gray-100 pt-12 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-12 border-t border-gray-100 pt-8 md:pt-12 md:grid-cols-3">
             <div>
               <h2 className="mb-4 font-lora text-xl italic tracking-tight text-gray-500 md:text-2xl">
                 Let's Connect
               </h2>
-              <p className="mb-6 font-grotesk text-2xl font-bold text-gray-900">Email</p>
+              <p className="mb-6 font-grotesk text-2xl font-bold text-gray-900">Email Us</p>
               <a href={siteConfig.contactEmailHref} className="group inline-flex items-center">
                 <div className="border-b-2 border-gray-900 pb-1 font-grotesk text-lg font-semibold text-gray-900 transition-all duration-300 group-hover:border-transparent group-hover:bg-gradient-to-r group-hover:from-[#00b2ff] group-hover:via-[#d946ef] group-hover:to-[#f97316] group-hover:bg-clip-text group-hover:text-transparent md:text-xl">
                   {siteConfig.contactEmail}
                 </div>
               </a>
+              <p className="mt-3 font-grotesk text-sm text-gray-500">Reply within 24hrs</p>
+            </div>
+
+            <div>
+              <h2 className="mb-4 font-lora text-xl italic tracking-tight text-gray-500 md:text-2xl">
+                Let's Chat
+              </h2>
+              <p className="mb-6 font-grotesk text-2xl font-bold text-gray-900">WhatsApp</p>
+              <a
+                href={siteConfig.whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center px-8 py-3 font-grotesk text-lg font-bold bg-[#25D366] text-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
+              >
+                <span>Chat Now</span>
+              </a>
+              <p className="mt-4 font-grotesk text-sm text-gray-500">Usually reply in 2hrs</p>
             </div>
 
             <div>
@@ -49,17 +66,21 @@ export default function Contact() {
                 href={siteConfig.calendlyUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gray-900 px-8 py-3 font-grotesk text-lg font-bold text-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.15)] active:scale-95"
+                className="inline-flex items-center justify-center px-8 py-3 font-grotesk text-lg font-bold bg-[#5227FF] text-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
               >
-                <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-[#00b2ff] via-[#d946ef] to-[#f97316] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-active:opacity-90" />
-                <span className="relative z-10">Book Now</span>
+                <span>Book Now</span>
               </a>
+              <p className="mt-4 font-grotesk text-sm text-gray-500">30 min free discovery call</p>
             </div>
           </div>
+
+          <p className="mt-16 text-left font-grotesk text-sm text-gray-500">
+            Based in Pune, India &middot; Working with clients worldwide
+          </p>
         </div>
       </main>
 
-      <SiteFooter variant="minimal" />
+      <SiteFooter />
     </div>
   );
 }

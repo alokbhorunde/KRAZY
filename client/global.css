@@ -146,6 +146,38 @@
     animation: scroll 30s linear infinite;
   }
 
+  /* Floating pill animations for footer — uses margin so rotation transform isn't overridden */
+  @keyframes pill-float-1 {
+    0%, 100% { margin-top: 0; margin-left: 0; }
+    25% { margin-top: -8px; margin-left: 4px; }
+    50% { margin-top: -4px; margin-left: 8px; }
+    75% { margin-top: -10px; margin-left: 2px; }
+  }
+
+  @keyframes pill-float-2 {
+    0%, 100% { margin-top: 0; margin-left: 0; }
+    25% { margin-top: -6px; margin-left: -5px; }
+    50% { margin-top: -12px; margin-left: -2px; }
+    75% { margin-top: -4px; margin-left: -6px; }
+  }
+
+  @keyframes pill-float-3 {
+    0%, 100% { margin-top: 0; margin-left: 0; }
+    25% { margin-top: -10px; margin-left: 3px; }
+    50% { margin-top: -5px; margin-left: -4px; }
+    75% { margin-top: -8px; margin-left: 6px; }
+  }
+
+  .animate-pill-float-1 {
+    animation: pill-float-1 8s ease-in-out infinite;
+  }
+  .animate-pill-float-2 {
+    animation: pill-float-2 9s ease-in-out infinite;
+  }
+  .animate-pill-float-3 {
+    animation: pill-float-3 7s ease-in-out infinite;
+  }
+
   /* Background grid pattern */
   .bg-grid {
     background-image:

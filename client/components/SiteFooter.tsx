@@ -1,26 +1,8 @@
-import { Suspense, lazy } from "react";
-import { isExternalHttpUrl, siteConfig, type SiteLink } from "@/lib/site-config";
-
-
+import { siteConfig, isExternalHttpUrl, type SiteLink } from "@/lib/site-config";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface SiteFooterProps {
   variant?: "full" | "minimal";
-}
-
-function FooterLink({ href, label }: SiteLink) {
-  const externalProps = isExternalHttpUrl(href)
-    ? { target: "_blank", rel: "noreferrer" as const }
-    : {};
-
-  return (
-    <a
-      href={href}
-      className="font-grotesk text-sm text-white/50 transition-colors hover:text-white"
-      {...externalProps}
-    >
-      {label}
-    </a>
-  );
 }
 
 function MinimalFooterLink({ href, label }: SiteLink) {
@@ -41,16 +23,67 @@ function MinimalFooterLink({ href, label }: SiteLink) {
 
 function getCopyrightLabel() {
   const currentYear = new Date().getFullYear();
-  return currentYear === 2024
-    ? "2024"
-    : `2024 - ${currentYear}`;
+  return currentYear === 2024 ? "2024" : `2024 - ${currentYear}`;
 }
 
-export default function SiteFooter({
-  variant = "full",
-}: SiteFooterProps) {
+/* ── Scattered floating pill links ── */
+const contactPills = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/krazystudios",
+    rotate: "-12deg",
+    top: "12%",
+    left: "6%",
+    mobileTop: "10%",
+    mobileLeft: "15%",
+    hoverBg: "#0A66C2",
+  },
+  {
+    label: "Email",
+    href: `mailto:${siteConfig.contactEmail}`,
+    rotate: "6deg",
+    top: "38%",
+    left: "18%",
+    mobileTop: "10%",
+    mobileLeft: "55%",
+    hoverBg: "#EA4335",
+  },
+  {
+    label: "#DesignByKrazy",
+    href: "#",
+    rotate: "-4deg",
+    top: "8%",
+    left: "34%",
+    mobileTop: "62%",
+    mobileLeft: "24%",
+    hoverBg: "#5227FF",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/krazystudios.in",
+    rotate: "14deg",
+    top: "30%",
+    left: "52%",
+    mobileTop: "36%",
+    mobileLeft: "50%",
+    hoverBg: "#E1306C",
+  },
+  {
+    label: "WhatsApp",
+    href: siteConfig.whatsappUrl,
+    rotate: "10deg",
+    top: "12%",
+    left: "72%",
+    mobileTop: "36%",
+    mobileLeft: "16%",
+    hoverBg: "#25D366",
+  },
+];
+
+export default function SiteFooter({ variant = "full" }: SiteFooterProps) {
   const footerLinks = [...siteConfig.legalLinks, ...siteConfig.socialLinks];
   const copyrightLabel = getCopyrightLabel();
+  const isMobile = useIsMobile();
 
   if (variant === "minimal") {
     return (
@@ -70,43 +103,99 @@ export default function SiteFooter({
   }
 
   return (
-    <footer
-      className="relative overflow-hidden border-t border-gray-200 bg-gray-950"
-      style={{ minHeight: "500px" }}
-    >
+    <footer className="relative overflow-hidden bg-transparent">
+      {/* Top border line matching the rest of the site sections */}
+      <div className="px-4 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-[1100px] border-t-2 border-gray-200" />
+      </div>
+
+      {/* ── Main "Get in touch" section ── */}
+      <div className="relative mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-10 flex flex-col justify-end" style={{ minHeight: isMobile ? "140px" : "180px" }}>
 
 
-      <div
-        className="relative z-10 flex h-full flex-col items-center justify-center"
-        style={{ minHeight: "300px" }}
-      >
-        <div className="flex w-full flex-1 items-center justify-center px-4 pt-16">
-          <h2
-            className="gradient-text select-none text-center font-grotesk font-bold"
-            style={{
-              fontSize: "clamp(3rem, 10vw, 10rem)",
-              lineHeight: 1,
-              letterSpacing: "-0.04em",
-              filter: "drop-shadow(0 0 60px rgba(217, 70, 239, 0.3))",
-            }}
-          >
-            {siteConfig.brandName.toUpperCase()}
-          </h2>
+        {/* Floating pill links */}
+        <div
+          className={
+            isMobile
+              ? "pointer-events-none w-full flex flex-wrap justify-center gap-2 p-4 pt-6"
+              : "pointer-events-none absolute inset-0"
+          }
+        >
+          {contactPills.map((pill) => {
+            const externalProps = isExternalHttpUrl(pill.href)
+              ? { target: "_blank" as const, rel: "noreferrer" as const }
+              : {};
+
+            return (
+              <a
+                key={pill.label}
+                href={pill.href}
+                className={`pointer-events-auto inline-flex items-center gap-2 rounded-full border-2 border-black bg-white font-grotesk font-bold text-gray-900 transition-colors duration-200 hover:bg-[var(--hover-bg)] hover:text-white hover:shadow-[4px_4px_0px_0px_#000000] ${
+                  isMobile
+                    ? "relative px-3 py-1.5 text-xs shadow-[2px_2px_0px_0px_#000000]"
+                    : "absolute px-5 py-2 text-sm shadow-[3px_3px_0px_0px_#000000]"
+                }`}
+                style={
+                  isMobile
+                    ? {
+                        transform: `rotate(${pill.rotate})`,
+                        ['--hover-bg' as any]: pill.hoverBg,
+                      }
+                    : {
+                        transform: `rotate(${pill.rotate})`,
+                        top: pill.top,
+                        left: pill.left,
+                        ['--hover-bg' as any]: pill.hoverBg,
+                      }
+                }
+                {...externalProps}
+              >
+                {pill.label}
+              </a>
+            );
+          })}
         </div>
 
-        <div className="mx-auto w-full max-w-[1100px] px-4 pb-8 pt-4 sm:px-6 lg:px-10">
-          <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 md:flex-row">
-            <p className="font-grotesk text-sm text-white/50">
-              Copyright {copyrightLabel} {siteConfig.brandName}. All rights reserved.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-6">
-              {footerLinks.map((link) => (
-                <FooterLink key={`${link.label}-${link.href}`} {...link} />
-              ))}
-            </div>
+        {/* Giant "KRAZY STUDIOS" text */}
+        <div className="flex items-end justify-center pb-1 pt-4 md:pb-4 md:pt-16">
+          <h2
+            className="select-none text-center font-grotesk font-black tracking-tighter text-gray-900"
+            style={{
+              fontSize: "clamp(2.5rem, 8.5vw, 7.8rem)",
+              lineHeight: 0.9,
+            }}
+          >
+            KRAZY STUDIOS
+          </h2>
+        </div>
+      </div>
+
+      {/* ── Brand gradient color bar ── */}
+      <div className="h-3 w-full gradient-bg" />
+
+      {/* ── Bottom copyright bar ── */}
+      <div className="border-t-2 border-black bg-gray-950">
+        <div className="mx-auto flex max-w-[1100px] flex-col items-center justify-between gap-4 px-4 py-6 sm:px-6 md:flex-row lg:px-10">
+          <p className="font-grotesk text-sm text-white/50">
+            Copyright {copyrightLabel} {siteConfig.brandName}. All rights reserved.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            {footerLinks.map((link) => (
+              <a
+                key={`${link.label}-${link.href}`}
+                href={link.href}
+                className="font-grotesk text-sm text-white/50 transition-colors hover:text-white"
+                {...(isExternalHttpUrl(link.href)
+                  ? { target: "_blank", rel: "noreferrer" }
+                  : {})}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
     </footer>
   );
 }
+

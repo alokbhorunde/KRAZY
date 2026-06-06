@@ -7,10 +7,13 @@ import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "./components/ScrollToTop";
 
 
+import WhatsAppFAB from "./components/WhatsAppFAB";
+
 const Index = lazy(() => import("./pages/Index"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
+const Blog = lazy(() => import("./pages/Blog"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => (
@@ -18,17 +21,19 @@ const App = () => (
     <BrowserRouter>
       <ScrollToTop />
 
-    <Suspense fallback={<div className="min-h-screen bg-white" />}>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/project/:id" element={<ProjectDetail />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/404" element={<NotFound />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Suspense>
-  </BrowserRouter>
+      <Suspense fallback={<div className="min-h-screen bg-white" />}>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/project/:id" element={<ProjectDetail />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      <WhatsAppFAB />
+    </BrowserRouter>
   </HelmetProvider>
 );
 

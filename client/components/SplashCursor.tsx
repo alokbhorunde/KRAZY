@@ -16,7 +16,9 @@ export default function SplashCursor({
   BACK_COLOR = { r: 0.5, g: 0, b: 0 },
   TRANSPARENT = true,
   RAINBOW_MODE = true,
-  COLOR = '#ff0000'
+  COLOR = '#ff0000',
+  position = 'absolute',
+  zIndex = 0
 }: {
   SIM_RESOLUTION?: number;
   DYE_RESOLUTION?: number;
@@ -34,6 +36,8 @@ export default function SplashCursor({
   TRANSPARENT?: boolean;
   RAINBOW_MODE?: boolean;
   COLOR?: string;
+  position?: 'absolute' | 'fixed';
+  zIndex?: number;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameId = useRef<number | null>(null);
@@ -1084,10 +1088,10 @@ export default function SplashCursor({
   return (
     <div
       style={{
-        position: 'absolute',
+        position: position,
         top: 0,
         left: 0,
-        zIndex: 0,
+        zIndex: zIndex,
         pointerEvents: 'none',
         width: '100%',
         height: '100%'
