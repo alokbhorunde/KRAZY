@@ -3,6 +3,7 @@ import Navigation from "../components/Navigation";
 import SiteFooter from "../components/SiteFooter";
 import SEO from "../components/SEO";
 import { siteConfig } from "@/lib/site-config";
+import { useBookingModal } from "../hooks/use-booking-modal";
 
 type ProjectData = {
   title: string;
@@ -404,6 +405,7 @@ const projectsData: Record<string, ProjectData> = {
 
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
+  const { openModal } = useBookingModal();
 
   if (!id || !projectsData[id]) {
     return <Navigate to="/404" replace />;
@@ -503,12 +505,12 @@ export default function ProjectDetail() {
                     <p className="font-grotesk text-lg text-gray-700">{project.year}</p>
                   </div>
                   <div className="pt-4">
-                    <Link
-                      to="/contact"
+                    <button
+                      onClick={openModal}
                       className="inline-flex items-center justify-center w-full px-6 py-3.5 bg-[#5227FF] text-white border-2 border-black rounded-full font-grotesk font-bold shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200 text-center"
                     >
                       <span>Start a similar project &rarr;</span>
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>

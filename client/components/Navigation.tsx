@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import BrandLogo from "./BrandLogo";
+import { useBookingModal } from "@/hooks/use-booking-modal";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const location = useLocation();
+  const { openModal } = useBookingModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +29,7 @@ const Navigation = () => {
           {/* Logo Area */}
           <Link
             to="/"
-            className="flex items-center gap-2.5 pl-4 pr-4 py-1.5 rounded-full border-2 border-transparent hover:border-black hover:bg-[#E5D4FF] hover:shadow-[2px_2px_0px_0px_#000000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000000] transition-all duration-200"
+            className="flex items-center gap-2.5 pl-4 pr-4 py-1.5 rounded-full"
           >
             <div className="w-6 h-6 flex items-center justify-center">
               <BrandLogo className="w-full" />
@@ -40,17 +42,18 @@ const Navigation = () => {
           {/* Nav Links Center */}
           <div className="flex items-center gap-4 xl:gap-6 h-full absolute left-1/2 -translate-x-1/2">
             {[
-              { label: "About", to: "/about", color: "hover:bg-[#FFDE4D]" },
-              { label: "Blog", to: "/blog", color: "hover:bg-[#C2FFD9]" },
-              { label: "Services", to: "/#services", color: "hover:bg-[#FF8F8F]" },
-              { label: "Projects", to: "/#projects", color: "hover:bg-[#A3D8FF]" }
+              { label: "About", to: "/about" },
+              { label: "Blog", to: "/blog" },
+              { label: "Services", to: "/services" },
+              { label: "Projects", to: "/#projects" },
+              { label: "Contact", to: "/contact" }
             ].map((item) => {
               const isHash = item.to.includes("#");
               const isActive = location.pathname === item.to;
-              const linkClasses = `px-4 py-1.5 rounded-full border-2 transition-all duration-200 font-grotesk font-bold text-lg text-black ${
+              const linkClasses = `px-4 py-1.5 rounded-full transition-all duration-200 font-grotesk font-bold text-lg text-black ${
                 isActive 
-                  ? `border-black shadow-[2px_2px_0px_0px_#000000] ${item.color.replace('hover:', '')}` 
-                  : `border-transparent hover:border-black hover:shadow-[2px_2px_0px_0px_#000000] ${item.color} active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000000]`
+                  ? `bg-gray-100` 
+                  : `hover:bg-gray-100`
               }`;
               
               if (isHash) {
@@ -68,13 +71,13 @@ const Navigation = () => {
             })}
           </div>
 
-          {/* Contact CTA Right */}
-          <Link
-            to="/contact"
+          {/* Book a Free Call CTA Right */}
+          <button
+            onClick={openModal}
             className="flex items-center justify-center px-6 py-2 mr-1 font-grotesk font-bold text-lg border-2 border-black bg-[#5227FF] text-white rounded-full shadow-[3px_3px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all"
           >
-            Contact Us
-          </Link>
+            Book a Free Call
+          </button>
           
         </div>
 
@@ -113,17 +116,18 @@ const Navigation = () => {
           >
             <div className="bg-white border-2 border-black rounded-3xl p-4 shadow-[5px_5px_0px_0px_#000000] flex flex-col gap-3">
               {[
-                { label: "About", to: "/about", color: "hover:bg-[#FFDE4D]" },
-                { label: "Blog", to: "/blog", color: "hover:bg-[#C2FFD9]" },
-                { label: "Services", to: "/#services", color: "hover:bg-[#FF8F8F]" },
-                { label: "Projects", to: "/#projects", color: "hover:bg-[#A3D8FF]" }
+                { label: "About", to: "/about" },
+                { label: "Blog", to: "/blog" },
+                { label: "Services", to: "/services" },
+                { label: "Projects", to: "/#projects" },
+                { label: "Contact", to: "/contact" }
               ].map((item) => {
                 const isHash = item.to.includes("#");
                 const isActive = location.pathname === item.to;
-                const linkClasses = `font-grotesk font-bold text-lg text-black border-2 px-5 py-3 rounded-full text-center block transition-all ${
+                const linkClasses = `font-grotesk font-bold text-lg text-black px-5 py-3 rounded-full text-center block transition-all ${
                   isActive
-                    ? `border-black shadow-[3px_3px_0px_0px_#000000] ${item.color.replace('hover:', '')}`
-                    : `border-transparent hover:border-black hover:shadow-[3px_3px_0px_0px_#000000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_#000000] ${item.color}`
+                    ? `bg-gray-100`
+                    : `hover:bg-gray-100`
                 }`;
 
                 if (isHash) {
@@ -150,13 +154,15 @@ const Navigation = () => {
                 );
               })}
               <div className="pt-2">
-                <Link
-                  to="/contact"
-                  onClick={() => setIsMenuOpen(false)}
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    openModal();
+                  }}
                   className="flex items-center justify-center h-[48px] w-full font-grotesk font-bold text-lg border-2 border-black bg-[#5227FF] text-white rounded-full shadow-[3px_3px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all"
                 >
-                  Contact Us
-                </Link>
+                  Book a Free Call
+                </button>
               </div>
             </div>
           </div>

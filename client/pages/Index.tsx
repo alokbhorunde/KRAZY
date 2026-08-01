@@ -15,31 +15,37 @@ const services = [
     title: "Creative Branding",
     description: "Crafting unforgettable identities and visual systems that turn heads.",
     image: "/creative_branding.webp",
+    category: "branding",
   },
   {
     title: "UI/UX Design",
     description: "Designing sleek, intuitive interfaces that users love to use.",
     image: "/ui_ux.webp",
+    category: "uiux",
   },
   {
     title: "Logo Design",
     description: "Creating iconic symbols that capture your brand's essence.",
     image: "/logo_design.webp",
+    category: "branding",
   },
   {
     title: "Poster Design",
     description: "Eye-catching visuals that demand attention and inspire action.",
     image: "/poster_design.webp",
+    category: "social",
   },
   {
     title: "Web & App Development",
     description: "Building digital experiences that work seamlessly across all devices.",
     image: "/webdev.webp",
+    category: "webdev",
   },
   {
     title: "Creative Strategy",
     description: "Strategic thinking that transforms ideas into impactful solutions.",
     image: "/krazystudiosabout.webp",
+    category: "strategy",
   },
 ] as const;
 
@@ -127,12 +133,29 @@ export default function Index() {
             </h1>
           </div>
 
-          <div className="mb-5 max-w-4xl sm:mb-7">
-            <p className="font-grotesk text-lg leading-relaxed text-gray-600 md:text-xl md:leading-8 lg:text-2xl">
+          <div className="mb-6 max-w-4xl sm:mb-8">
+            <p className="font-grotesk text-base leading-relaxed text-gray-600 sm:text-lg md:text-xl md:leading-8 lg:text-2xl">
               We build bold brands, immersive digital experiences, and future-forward web designs from Pune, India.{" "}
-              <span className="font-bold text-gray-900">Smart. Disruptive. Krazy.</span>
+              <span className="font-bold text-gray-900">50+ brands shipped. Working with startups worldwide.</span>
             </p>
           </div>
+
+          {/* Hero CTAs */}
+          <div className="mb-8 flex flex-wrap gap-4 sm:mb-10">
+            <button
+              onClick={openModal}
+              className="inline-flex items-center justify-center rounded-full bg-[#5227FF] text-white border-2 border-black px-8 py-3.5 font-grotesk text-base font-bold sm:px-10 sm:py-4 sm:text-lg shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all"
+            >
+              Book a Free Call &rarr;
+            </button>
+            <a
+              href="#projects"
+              className="inline-flex items-center justify-center rounded-full bg-white text-gray-900 border-2 border-black px-8 py-3.5 font-grotesk text-base font-bold sm:px-10 sm:py-4 sm:text-lg shadow-[4px_4px_0px_0px_#000000] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_0px_#000000] transition-all"
+            >
+              See Our Work &darr;
+            </a>
+          </div>
+
         </div>
       </section>
 
@@ -149,7 +172,11 @@ export default function Index() {
 
           <div className="flex flex-col gap-6 pl-4 md:gap-10 md:pl-8 lg:pl-16">
             {services.map((service) => (
-              <div key={service.title} className="group relative w-full cursor-pointer py-2">
+              <Link
+                key={service.title}
+                to={`/services?category=${service.category}`}
+                className="group relative w-full cursor-pointer py-2 block text-left"
+              >
                 <div className="relative z-10 w-fit">
                   <div className="flex origin-left items-center transition-transform duration-300 group-hover:scale-[1.03]">
                     <h3 className="font-grotesk text-xl font-bold tracking-tight text-gray-900 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-[#00b2ff] group-hover:via-[#d946ef] group-hover:to-[#f97316] group-hover:bg-clip-text group-hover:text-transparent md:text-3xl lg:text-4xl">
@@ -179,7 +206,7 @@ export default function Index() {
                     />
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -192,8 +219,8 @@ export default function Index() {
             <h2 className="gradient-text mb-3 w-fit font-grotesk text-3xl font-bold leading-none tracking-tight md:text-5xl lg:text-6xl">
               Selected works
             </h2>
-            <p className="max-w-4xl font-grotesk text-2xl leading-8 text-gray-600">
-              Years of experience to create unique design in agile and fast manner
+            <p className="max-w-4xl font-grotesk text-xl leading-8 text-gray-600 md:text-2xl">
+              Real work for real brands — from concept to launch.
             </p>
           </div>
 
@@ -208,7 +235,7 @@ export default function Index() {
                   <div className="flex flex-col h-full justify-between">
                     <div>
                       {/* Image Container with Zoom effect */}
-                      <div className="relative aspect-[2/1] w-full overflow-hidden rounded-xl border-2 border-black bg-gray-50">
+                      <div className="relative aspect-[3/2] w-full overflow-hidden rounded-xl border-2 border-black bg-gray-50 md:aspect-[2/1]">
                         <img
                           src={project.image}
                           alt={project.alt}
@@ -259,8 +286,7 @@ export default function Index() {
                 Work with us
               </h2>
               <p className="mb-10 font-grotesk text-xl leading-relaxed text-gray-600 md:text-2xl">
-                We are eager to learn about your organization and to help you achieve a
-                well-defined out-of-the-box visual strategy.
+                Tell us what you're building. We'll show you how we can make it extraordinary — no commitment, just a conversation.
               </p>
 
               <div className="flex flex-wrap gap-4">
